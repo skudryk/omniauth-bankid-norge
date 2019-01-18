@@ -1,9 +1,10 @@
 # OmniAuth OpenID Connect Strategy for BankID Norge REST API
-# based  on omniauth-oauth2 base strategy 
+
+ based  on omniauth-oauth2 base strategy 
 
 
-# Example configuration to be used with Devise Omniauth (put this in config/initializers/devise.rb:
-# assumming that oidc_config_file specified in secrets.yml
+ Example configuration to be used with Devise Omniauth (put this in config/initializers/devise.rb:
+ assumming that oidc_config_file specified in secrets.yml
 
 ```
   bankid_opts = Rails.application.secrets[:bankid]
