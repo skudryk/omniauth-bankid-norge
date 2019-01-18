@@ -1,0 +1,5 @@
+module OmniAuth
+  module BankID
+    VERSION = "0.0.1"
+  end
+end
