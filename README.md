@@ -29,7 +29,7 @@
 
 example content of OIDC configuration file:
 (see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)
-
+```
 OIDC_config = {
   "issuer": "https://oidc-current.bankidapis.no/auth/realms/current",
   "authorization_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/precheck/auth",
@@ -44,3 +44,4 @@ OIDC_config = {
   "subject_types_supported": ["public","pairwise"],
   "aml_baseurl": "https://aml-current.bankidapis.no"
 }
+```
