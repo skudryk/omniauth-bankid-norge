@@ -3,10 +3,10 @@
  based  on omniauth-oauth2 base strategy 
 
 
- Example configuration to be used with Devise Omniauth (put this in config/initializers/devise.rb:
+ Example configuration to be used with Devise Omniauth (put this in config/initializers/devise.rb:<br/>
  assumming that oidc_config_file specified in secrets.yml
 
-```
+```ruby
   bankid_opts = Rails.application.secrets[:bankid]
   load  Rails.root.join('config', bankid_opts[:oidc_config_file])
 
@@ -27,10 +27,10 @@
    }
 ```
 
- Example content of OIDC configuration file retrieved with GET request to
- https://oidc-current.bankidapis.no/auth/realms/current/.well-known/openid-configuration
- (see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)
-```
+ Example content of OIDC configuration file retrieved with GET request to<br/>
+ https://oidc-current.bankidapis.no/auth/realms/current/.well-known/openid-configuration</br>
+ (see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)<br/>
+```ruby
 OIDC_config = {
   "issuer": "https://oidc-current.bankidapis.no/auth/realms/current",
   "authorization_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/precheck/auth",
