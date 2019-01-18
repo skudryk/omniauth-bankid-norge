@@ -27,8 +27,9 @@
    }
 ```
 
-example content of OIDC configuration file:
-(see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)
+ Example content of OIDC configuration file retrieved with GET request to
+ https://oidc-current.bankidapis.no/auth/realms/current/.well-known/openid-configuration
+ (see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)
 ```
 OIDC_config = {
   "issuer": "https://oidc-current.bankidapis.no/auth/realms/current",
