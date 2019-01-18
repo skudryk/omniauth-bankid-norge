@@ -26,3 +26,21 @@
       }
    }
 ```
+
+example content of OIDC configuration file:
+(see https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/rest-api/openid-configuration)
+
+OIDC_config = {
+  "issuer": "https://oidc-current.bankidapis.no/auth/realms/current",
+  "authorization_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/precheck/auth",
+  "token_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/protocol/openid-connect/token",
+  "token_introspection_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/protocol/openid-connect/token/introspect",
+  "userinfo_endpoint": "https://tinfo-current.bankidapis.no/userinfo",
+  "end_session_endpoint": "https://oidc-current.bankidapis.no/auth/realms/current/protocol/openid-connect/logout",
+  "jwks_uri": "https://oidc-current.bankidapis.no/auth/realms/current/protocol/openid-connect/certs",
+  "check_session_iframe": "https://oidc-current.bankidapis.no/auth/realms/current/protocol/openid-connect/login-status-iframe.html",
+  "grant_types_supported": ["authorization_code","implicit","refresh_token","password","client_credentials"],
+  "response_types_supported": ["code","none","id_token","token","id_token token","code id_token","code token","code id_token token"],
+  "subject_types_supported": ["public","pairwise"],
+  "aml_baseurl": "https://aml-current.bankidapis.no"
+}
