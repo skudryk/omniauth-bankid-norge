@@ -1,4 +1,4 @@
-# OmniAuth OpenID Connect Strategy for BankID Norge REST API
+## OmniAuth OpenID Connect Strategy for BankID Norge REST API
 
  based  on omniauth-oauth2 base strategy 
 
