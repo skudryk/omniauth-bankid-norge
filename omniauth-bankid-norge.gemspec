@@ -8,6 +8,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{An BankID OpenID Connect strategy for OmniAuth 1.x}
   gem.description   = %q{An BankID OpenID Connect strategy for OmniAuth 1.x}
   gem.authors       = ["Serhii Kudryk"]
+  gem.email         = 'sergiy.kudryk@gmail.com'
   gem.homepage      = "https://github.com/skudryk/omniauth-bankid-norge"
 
   gem.files         = `git ls-files`.split("\n")
