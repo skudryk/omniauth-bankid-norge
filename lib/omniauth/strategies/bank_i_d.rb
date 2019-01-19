@@ -155,9 +155,9 @@ module OmniAuth
       # TODO: add support to handle PEP report file download
       def parse_response(response)
         return {} unless response
-        if response.headers["content-type"].include? 'application/jwt'
+        if response.headers["content-type"]&.include? 'application/jwt'
           JWT.decode(response.body, nil, false)[0]
-        elsif response.headers['content-type'].include? 'application/pdf'
+        elsif response.headers['content-type']&.include? 'application/pdf'
           response.body
         else
           response.parsed
