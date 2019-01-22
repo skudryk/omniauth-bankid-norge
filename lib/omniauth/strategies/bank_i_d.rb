@@ -39,13 +39,13 @@ module OmniAuth
           ssn: t_info.dig('nnin'),
           postcode: t_info.dig('address', 'postal_code'),
           region: t_info.dig('address', 'locality'),
-          pep_info: aml_info('pep') #,
+          pep_info: aml_info('pep') { 'nationality=NO&includeReport=true' }
           #report_link: aml_info('report', @aml_info[:reportId])
         })
       end
 
       # quickly get info from BANKID API without doing user authentication
-      def quick_info(first_name, last_name, ssn, nationality = 'NO')
+      def quick_info(first_name:, last_name:, ssn:, nationality: 'NO')
         opts = {
           firstName: first_name,
           lastName: last_name,
@@ -84,13 +84,13 @@ module OmniAuth
         opts = bearer_request
         if block_given?
           extra_params = yield
-          url += '?' + extra_params
-        elsif  kind == 'report'
+          url += "?#{extra_params}"
+        elsif kind == 'report'
           return nil unless value
-          url += '?' + "reportId=#{value}"
+          url += "?reportId=#{value}"
         else
           opts[:body] = {
-            nationality: 'nb',
+            nationality: 'NO',
             includeReport: true
           }
         end
