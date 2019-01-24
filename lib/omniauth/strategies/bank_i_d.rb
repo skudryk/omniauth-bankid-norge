@@ -79,32 +79,26 @@ module OmniAuth
         prune! hash
       end
 
-      def aml_info(kind, value = nil)
+      def aml_info(kind)
         url = options[:client_options]["aml_#{kind}_url".to_sym]
-        opts = bearer_request
+        opts = bearer_request_options
         if block_given?
           extra_params = yield
           url += "?#{extra_params}"
-        elsif kind == 'report'
-          return nil unless value
-          url += "?reportId=#{value}"
         else
-          opts[:body] = {
-            nationality: 'NO',
-            includeReport: true
-          }
+          url += "?nationality=NO"
         end
         @aml_info = parse_response(client_request(:get, url, opts))
       end
 
       def t_info
         url = options[:client_options][:userinfo_url]
-        @t_info ||= parse_response(client_request(:get, url, bearer_request))
+        @t_info ||= parse_response(client_request(:get, url, bearer_request_options))
       end
 
       def build_access_token_bankid(flow = 'authorization_code')
         opts = {
-          raise_errors: true,
+          raise_errors: false,
           parse: nil, 
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -160,22 +154,30 @@ module OmniAuth
         elsif response.headers['content-type']&.include? 'application/pdf'
           response.body
         else
-          response.parsed
+          out = response.parsed
+          raise response.error unless out
+          out
         end
       end
 
       def client_request(method, url, options = {})
         begin
-           client.request(:get, url, options) 
+           resp = client.request(:get, url, options)
+           case resp.status
+           when 400..599
+             resp.error = Error.new("#{resp&.response&.reason_phrase}, request url: #{url}")
+           end
+           resp
         rescue StandardError => e
-          Rails.logger.error "BankID OIDC client error: #{e.message}"
+          Rails.logger.error "BankID OIDC client error: #{e.message}, response status: #{resp.status}"
           Rails.logger.error e.inspect
           nil
         end
       end
 
-      def bearer_request
+      def bearer_request_options
         {
+          raise_errors: false,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': "Bearer #{access_token.token}"
