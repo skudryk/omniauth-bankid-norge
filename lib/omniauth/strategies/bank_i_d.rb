@@ -154,9 +154,7 @@ module OmniAuth
         elsif response.headers['content-type']&.include? 'application/pdf'
           response.body
         else
-          out = response.parsed
-          raise response.error unless out
-          out
+          response.parsed
         end
       end
 
@@ -165,12 +163,12 @@ module OmniAuth
            resp = client.request(:get, url, options)
            case resp.status
            when 400..599
-             resp.error = Error.new("#{resp&.response&.reason_phrase}, request url: #{url}")
+             Rails.logger.error "BankID OIDC client error: #{resp&.response&.reason_phrase}, request url: #{url}"
            end
            resp
         rescue StandardError => e
           Rails.logger.error "BankID OIDC client error: #{e.message}, response status: #{resp.status}"
-          Rails.logger.error e.inspect
+          raise Error.new(resp)
           nil
         end
       end
